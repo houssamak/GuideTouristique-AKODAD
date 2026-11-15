@@ -12,12 +12,26 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>8</maven.compiler.target>
-        <maven.compiler.source>8</maven.compiler.source>
+        <!-- Compilation en Java 25 (comme le JDK du projet et le TP 2) -->
+        <maven.compiler.release>25</maven.compiler.release>
         <junit.version>6.1.3</junit.version>
     </properties>
 
+    <!-- BOM LangChain4j : fixe la version de tous les modules LangChain4j -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-bom</artifactId>
+                <version>1.23.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <!-- API Jakarta EE (fournies par Payara à l'exécution) -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -36,6 +50,20 @@
             <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- LangChain4j : AiServices, mémoire, messages... (version donnée par le BOM) -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+
+        <!-- Module LangChain4j pour Gemini (GoogleGenAiChatModel) -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-google-genai</artifactId>
+        </dependency>
+
+        <!-- Tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
