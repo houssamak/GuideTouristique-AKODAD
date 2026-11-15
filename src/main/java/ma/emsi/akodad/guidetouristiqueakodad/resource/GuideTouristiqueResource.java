@@ -13,18 +13,28 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/guide")
 public class GuideTouristiqueResource {
 
+    // ===== Version 1 (étape 3.a) : retourne simplement le paramètre =====
+    // @GET
+    // @Path("lieu/{ville_ou_pays}")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public String endroitsDeVisite(@PathParam("ville_ou_pays") String villeOuPays) {
+    //     return villeOuPays;
+    // }
+
     /**
      * Donne les principaux endroits à visiter dans une ville ou un pays.
-     * Version de test : retourne simplement le nom du lieu reçu dans l'URL.
+     * Version de test : retourne un tableau dont le seul élément est le nom
+     * du lieu reçu dans l'URL. JAX-RS convertit automatiquement le tableau
+     * en JSON grâce à l'annotation @Produces.
      *
      * @param villeOuPays le nom de la ville ou du pays, extrait de l'URL
      *                    (.../lieu/{ville_ou_pays})
-     * @return le nom du lieu passé en paramètre
+     * @return un tableau contenant le nom du lieu, converti en tableau JSON
      */
     @GET
     @Path("lieu/{ville_ou_pays}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String endroitsDeVisite(@PathParam("ville_ou_pays") String villeOuPays) {
-        return villeOuPays;
+    public String[] endroitsDeVisite(@PathParam("ville_ou_pays") String villeOuPays) {
+        return new String[]{villeOuPays};
     }
 }
