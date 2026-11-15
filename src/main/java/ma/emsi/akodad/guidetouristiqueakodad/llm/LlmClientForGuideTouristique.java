@@ -1,11 +1,11 @@
 package ma.emsi.akodad.guidetouristiqueakodad.llm;
 
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.request.ResponseFormat;
 import dev.langchain4j.model.google.genai.GoogleGenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-import dev.langchain4j.model.chat.request.ResponseFormat;
 
 /**
  * Client qui gère la communication avec le LLM (Gemini) pour le guide touristique.
@@ -44,13 +44,19 @@ public class LlmClientForGuideTouristique {
                 .build();
     }
 
+    // ===== Version 1 (étape 4.4) : nombre d'endroits fixé à 2 =====
+    // public String endroitsDeVisite(String villeOuPays) {
+    //     return guideTouristique.chat(villeOuPays);
+    // }
+
     /**
      * Demande au LLM les informations touristiques sur une ville ou un pays.
      *
      * @param villeOuPays le nom de la ville ou du pays
+     * @param nb          le nombre d'endroits à visiter demandés
      * @return la réponse du LLM au format JSON (sous forme de String)
      */
-    public String endroitsDeVisite(String villeOuPays) {
-        return guideTouristique.chat(villeOuPays);
+    public String endroitsDeVisite(String villeOuPays, int nb) {
+        return guideTouristique.chat(villeOuPays, nb);
     }
 }
