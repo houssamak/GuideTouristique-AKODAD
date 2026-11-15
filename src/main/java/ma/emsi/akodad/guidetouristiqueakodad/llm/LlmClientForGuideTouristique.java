@@ -5,6 +5,7 @@ import dev.langchain4j.model.google.genai.GoogleGenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
+import dev.langchain4j.model.chat.request.ResponseFormat;
 
 /**
  * Client qui gère la communication avec le LLM (Gemini) pour le guide touristique.
@@ -34,6 +35,8 @@ public class LlmClientForGuideTouristique {
         ChatModel model = GoogleGenAiChatModel.builder()
                 .apiKey(apiKey)
                 .modelName("gemini-3.8-flash")
+                // Demande à l'API Gemini de ne répondre qu'avec du JSON (sans Markdown)
+                .responseFormat(ResponseFormat.JSON)
                 .build();
 
         guideTouristique = AiServices.builder(GuideTouristique.class)
